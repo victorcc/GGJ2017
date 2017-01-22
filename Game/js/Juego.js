@@ -5,8 +5,13 @@ ALTO = "400";
 POSX_INICIAL = Math.round(LARGO/2) - 15;
 POSY_INICIAL = ALTO - 15;
 JUEGO_FPS = 50;
+
+MENU=0;
+GAME=1;
+
 var micanvas;
 var contexto;
+var gamestate;
 
 /*
  * tendremos una clase que controlara las posiciones
@@ -28,14 +33,37 @@ function limpiar () {
 var Juego = function() {
 	
 	var posicionInicial=new Posicion(0,62,30,30);
+    var posicionInicial2=new Posicion(0,0,213,200);
 	var bomberman = new Personaje();
+    var hero=new Hand();
+    hero.setPosicion(posicionInicial2);
 	bomberman.setPosicion(posicionInicial);
 	var manejadornave = new ManejadorDeEventos();
 	manejadornave.agregar(bomberman);	
+	manejadornave.agregar(hero);	
 	
+    
+    gamestate=GAME;
+    
+    
+    
 	this.correrJuego = function() {
-		limpiar();
-		bomberman.dibujar();
+        switch (gamestate){
+           case MENU:
+                
+                break;
+           
+           case GAME:
+                    limpiar();
+                    bomberman.dibujar();
+                    hero.dibujar();
+                break;
+            
+            default:
+                
+        }
+        
+		
 	};	
 	setInterval(this.correrJuego, 1000 / JUEGO_FPS);
 	
